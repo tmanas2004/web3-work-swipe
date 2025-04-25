@@ -81,9 +81,16 @@ export function SwipeCard({ job, onSwipe, onNegotiate }: SwipeCardProps) {
               )}
             </div>
           </div>
-          <Badge variant="outline" className={job.immediate ? "bg-red-100 text-red-800" : "bg-blue-100 text-blue-800"}>
-            {job.immediate ? 'Immediate' : 'Flexible'}
-          </Badge>
+          <div className="flex flex-col gap-1 items-end">
+            <Badge variant="outline" className={job.immediate ? "bg-red-100 text-red-800" : "bg-blue-100 text-blue-800"}>
+              {job.immediate ? 'Immediate' : 'Flexible'}
+            </Badge>
+            {job.blockchain === 'rootstock' && (
+              <Badge variant="outline" className="bg-amber-100 text-amber-800">
+                Rootstock
+              </Badge>
+            )}
+          </div>
         </div>
 
         <h2 className="text-xl font-bold mb-2">{job.title}</h2>
