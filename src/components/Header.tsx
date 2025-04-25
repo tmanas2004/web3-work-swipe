@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -12,27 +11,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
 
 export function Header() {
-  const { account, connectWallet, disconnectWallet, userRole, currentNetwork, switchNetwork } = useWallet();
+  const { account, connectWallet, disconnectWallet, userRole } = useWallet();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Add scroll event listener
   if (typeof window !== 'undefined') {
     window.addEventListener('scroll', () => {
       setIsScrolled(window.scrollY > 20);
     });
   }
-
-  const handleNetworkSwitch = () => {
-    if (currentNetwork === 'rootstock') {
-      switchNetwork('ethereum');
-    } else {
-      switchNetwork('rootstock');
-    }
-  };
 
   return (
     <header
@@ -43,7 +31,7 @@ export function Header() {
       <div className="container mx-auto flex items-center justify-between py-4">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold bg-gradient-to-r from-web3-primary to-web3-tertiary bg-clip-text text-transparent">
-            Web3Work
+            RSKWork
           </span>
         </Link>
 
@@ -78,21 +66,6 @@ export function Header() {
             </nav>
           )}
 
-          {account && (
-            <div className="flex items-center mr-2">
-              <div className="flex items-center space-x-2">
-                <Switch 
-                  id="network-switch" 
-                  checked={currentNetwork === 'rootstock'}
-                  onCheckedChange={handleNetworkSwitch}
-                />
-                <Label htmlFor="network-switch" className="text-xs">
-                  {currentNetwork === 'rootstock' ? 'Rootstock' : 'Ethereum'}
-                </Label>
-              </div>
-            </div>
-          )}
-
           {account ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -101,7 +74,7 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
+                <DropdownMenuLabel>Rootstock Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link to="/profile">My Profile</Link>
@@ -119,24 +92,13 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="default"
-                  className="bg-web3-primary hover:bg-web3-secondary text-white"
-                >
-                  Connect Wallet
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => connectWallet('ethereum')}>
-                  Connect to Ethereum
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => connectWallet('rootstock')}>
-                  Connect to Rootstock
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Button 
+              variant="default"
+              className="bg-web3-primary hover:bg-web3-secondary text-white"
+              onClick={connectWallet}
+            >
+              Connect to Rootstock
+            </Button>
           )}
         </div>
       </div>
