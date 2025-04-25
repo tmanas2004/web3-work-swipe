@@ -78,7 +78,7 @@ const Messages = () => {
         id: '2-2',
         senderId: 'me',
         receiverId: '2',
-        content: 'No problem! I'm excited to work on this project.',
+        content: "No problem! I'm excited to work on this project.",
         timestamp: '2023-04-23T09:20:00Z',
       },
       {
